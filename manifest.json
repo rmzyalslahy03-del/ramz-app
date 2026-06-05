@@ -1,0 +1,24 @@
+{
+  "name": "⚡ ramz-App - المراسلة المتكاملة",
+  "short_name": "ramz-App",
+  "description": "تطبيق مراسلة متكامل يعمل محلياً مع دعم كامل للمحادثات والمكالمات والقصص. يدعم SQLite و PWA.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f8fafc",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHBhdGggZD0iTTk2LDEyYy00Ni42LDAtODQuNCwzNy44LTg0LjQsODQuNHMzNy44LDg0LjQsODQuNCw4NC40UzE4MC40LDE0MywxODAuNCw5Ni40UzE0Mi42LDEyLDk2LDEyeiBNOTYsMTY4LjggYy00MCwwLTcyLjgtMzIuOC03Mi44LTcyLjhzMzIuOC03Mi44LDcyLjgtNzIuOFMxNjguOCw1NiwxNjguOCw5Ni42UzEzNiwxNjguOCw5NiwxNjguOHoiIGZpbGw9IiMzYjgyZjYiLz48cGF0aCBkPSJNOTYsMzZjLTIyLjEsMC00MCwxNy45LTQwLDQwczE3LjksNDAsNDAsNDBzNDAtMTcuOSw0MC00MFMxMTguMSwzNiw5NiwzNnogTTk2LDEwOGMtMTcuNywwLTMyLTE0LjMtMzItMzJzMTQuMy0zMiwzMi0zMnMzMiwxNC4zLDMyLDMyUzExMy43LDEwOCw5NiwxMDh6IiBmaWxsPSIjM2I4MmY2Ii8+PC9zdmc+",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZD0iTTI1NiwzMmMtMTI0LDAtMjI0LDEwMC0yMjQsMjI0czEwMCwyMjQsMjI0LDIyNFMzODAsMzgwLDQ4MCwyNTZTMzgwLDMyLDI1NiwzMnogTTI1Niw0NDggYy0xMDYsMC0xOTItODYtMTkyLTE5MnM4Ni0xOTIsMTkyLTE5MlM0NDgsMTUwLDQ0OCwyNTZTMzYyLDQ0OCwyNTYsNDQ4eiIgZmlsbD0iIzNiODJmNiIvPjxwYXRoIGQ9Ik0yNTYsOTZjLTU1LDAtMTAwLDQ1LTEwMCwxMDBzNDUsMTAwLDEwMCwxMDBzMTAwLTQ1LDEwMC0xMDBTMzExLDk2LDI1Niw5NnogTTI1NiwyNzZjLTMzLDAtNjAtMjctNjAtNjBzMjctNjAsNjAtNjBzNjAsMjcsNjAsNjBTMjg5LDI3NiwyNTYsMjc2eiIgZmlsbD0iIzNiODJmNiIvPjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

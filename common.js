@@ -1,12 +1,11 @@
 // ============================================================
-// common.js - ramz-App v6.0 FINAL COMPLETE
+// common.js - ramz-App v6.0 FINAL COMPLETE (جميع الدوال)
 // ============================================================
 
 const SUPABASE_URL = 'https://serlegwdzjulfcxabxzv.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_4_c97KxnG_7HTvfv-pKeNQ_FTlnK6Yx';
 const STORAGE_BUCKET = 'ramz-images';
 
-// تهيئة Supabase
 var supabase = (window.supabase && window.supabase.createClient)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
     : null;
@@ -1266,12 +1265,10 @@ $('#notifToggle')?.addEventListener('click', function(e) {
 function loadProfileToSettings() {
     if (!DB.user) return;
     var avatarEl = $('#profileSettingsAvatar'); if (avatarEl) avatarEl.textContent = DB.user.avatar || DB.user.name?.charAt(0) || '?';
-    $('#profileBioInput').value = DB.user.bio || '';
-    $('#profileStatusInput').value = DB.user.status || '';
-    $('#profilePhoneInput').value = DB.user.phone || '';
-    if (DB.user.profileImage) {
-        if (avatarEl) { avatarEl.style.backgroundImage = 'url(' + DB.user.profileImage + ')'; avatarEl.style.backgroundSize = 'cover'; avatarEl.textContent = ''; }
-    }
+    var bioInput = $('#profileBioInput'); if (bioInput) bioInput.value = DB.user.bio || '';
+    var statusInput = $('#profileStatusInput'); if (statusInput) statusInput.value = DB.user.status || '';
+    var phoneInput = $('#profilePhoneInput'); if (phoneInput) phoneInput.value = DB.user.phone || '';
+    if (DB.user.profileImage && avatarEl) { avatarEl.style.backgroundImage = 'url(' + DB.user.profileImage + ')'; avatarEl.style.backgroundSize = 'cover'; avatarEl.textContent = ''; }
 }
 $('#changeProfileImageBtn')?.addEventListener('click', function() { $('#profileImageInput').click(); });
 $('#profileImageInput')?.addEventListener('change', async function(e) {
@@ -1302,41 +1299,41 @@ function deleteAccount() {
     }
 }
 
-document.getElementById('editProfileSettingsBtn')?.addEventListener('click', () => {
+document.getElementById('editProfileSettingsBtn')?.addEventListener('click', function() {
     showScreen('settings');
     document.getElementById('profileBioInput').scrollIntoView();
 });
-document.getElementById('profileCallBtn')?.addEventListener('click', () => {
-    const user = selectedModalUser || DB.user;
+document.getElementById('profileCallBtn')?.addEventListener('click', function() {
+    var user = selectedModalUser || DB.user;
     if (user) startWebRTC(user, 'voice');
 });
-document.getElementById('profileVideoBtn')?.addEventListener('click', () => {
-    const user = selectedModalUser || DB.user;
+document.getElementById('profileVideoBtn')?.addEventListener('click', function() {
+    var user = selectedModalUser || DB.user;
     if (user) startWebRTC(user, 'video');
 });
 
 async function exploreContacts() {
-    const currentUserId = DB.user?.id;
+    var currentUserId = DB.user?.id;
     if (!currentUserId) { toast('يجب تسجيل الدخول أولاً', true); return; }
-    const modal = document.getElementById('exploreContactsModal');
-    const listEl = document.getElementById('exploreContactsList');
+    var modal = document.getElementById('exploreContactsModal');
+    var listEl = document.getElementById('exploreContactsList');
     modal.style.display = 'flex';
     listEl.innerHTML = '<div style="text-align:center;color:var(--text3);">جارٍ التحميل...</div>';
 
-    let users = [];
+    var users = [];
     if (supabase) {
-        const { data, error } = await supabase.from('users').select('*');
-        if (error) { listEl.innerHTML = '<div style="text-align:center;color:#ef4444;">فشل تحميل القائمة</div>'; console.error(error); return; }
-        users = data || [];
+        var result = await supabase.from('users').select('*');
+        if (result.error) { listEl.innerHTML = '<div style="text-align:center;color:#ef4444;">فشل تحميل القائمة</div>'; console.error(result.error); return; }
+        users = result.data || [];
     } else { listEl.innerHTML = '<div style="text-align:center;color:var(--text3);">الخدمة السحابية غير متاحة</div>'; return; }
 
-    users = users.filter(u => u.external_id !== currentUserId && u.id !== currentUserId);
+    users = users.filter(function(u) { return u.external_id !== currentUserId && u.id !== currentUserId; });
     if (users.length === 0) { listEl.innerHTML = '<div style="text-align:center;color:var(--text3);">لا يوجد مستخدمون آخرون</div>'; return; }
 
     listEl.innerHTML = '';
-    users.forEach(u => {
-        const alreadyChat = DB.chats.find(c => c.id === u.external_id);
-        const div = document.createElement('div');
+    users.forEach(function(u) {
+        var alreadyChat = DB.chats.find(function(c) { return c.id === u.external_id; });
+        var div = document.createElement('div');
         div.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border);';
         div.innerHTML = `
             <div style="display: flex; align-items: center; gap: 12px;">
@@ -1350,9 +1347,9 @@ async function exploreContacts() {
                 ${alreadyChat ? 'محادثة' : 'إضافة'}
             </button>
         `;
-        div.querySelector('button').addEventListener('click', () => {
-            const userId = u.external_id;
-            const userName = u.name;
+        div.querySelector('button').addEventListener('click', function() {
+            var userId = u.external_id;
+            var userName = u.name;
             if (alreadyChat) { openChat(alreadyChat.id); }
             else { startOrOpenChat({ id: userId, name: userName, avatar: userName.charAt(0), bio: u.bio || '' }); }
             modal.style.display = 'none';
@@ -1361,7 +1358,7 @@ async function exploreContacts() {
     });
 }
 
-document.getElementById('closeExploreContactsBtn')?.addEventListener('click', () => {
+document.getElementById('closeExploreContactsBtn')?.addEventListener('click', function() {
     document.getElementById('exploreContactsModal').style.display = 'none';
 });
 
@@ -1413,17 +1410,6 @@ async function syncToCloud(showToastFlag) {
 
 // ---------- PWA ----------
 var deferredPrompt;
-window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault(); deferredPrompt = e;
-    var installBtn = document.getElementById('installBtn');
-    if (installBtn) { installBtn.style.display = 'block'; }
-    if (shouldShowInstallPrompt()) { setTimeout(function() { showInstallModal(); }, 3000); }
-});
-window.addEventListener('appinstalled', function() {
-    var data = getInstallData(); data.installed = true; saveInstallData(data);
-    deferredPrompt = null; hideInstallModal(); console.log('PWA installed');
-});
-
 function getInstallData() {
     try { return JSON.parse(localStorage.getItem('ramz_pwa_install')) || { dismissed: false, count: 0, lastDismissed: null, installed: false }; }
     catch (e) { return { dismissed: false, count: 0, lastDismissed: null, installed: false }; }
@@ -1440,14 +1426,8 @@ function shouldShowInstallPrompt() {
     }
     return false;
 }
-function showInstallModal() {
-    var modal = document.getElementById('installModal');
-    if (modal) modal.style.display = 'flex';
-}
-function hideInstallModal() {
-    var modal = document.getElementById('installModal');
-    if (modal) modal.style.display = 'none';
-}
+function showInstallModal() { var m = document.getElementById('installModal'); if (m) m.style.display = 'flex'; }
+function hideInstallModal() { var m = document.getElementById('installModal'); if (m) m.style.display = 'none'; }
 async function promptInstall() {
     if (deferredPrompt) {
         deferredPrompt.prompt();
@@ -1463,6 +1443,14 @@ async function promptInstall() {
         deferredPrompt = null;
     } else { hideInstallModal(); toast('خاصية التثبيت غير متاحة حالياً'); }
 }
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault(); deferredPrompt = e;
+    if (shouldShowInstallPrompt()) { setTimeout(function() { showInstallModal(); }, 3000); }
+});
+window.addEventListener('appinstalled', function() {
+    var data = getInstallData(); data.installed = true; saveInstallData(data);
+    deferredPrompt = null; hideInstallModal();
+});
 document.getElementById('installConfirmBtn')?.addEventListener('click', promptInstall);
 document.getElementById('installDismissBtn')?.addEventListener('click', function() {
     var data = getInstallData(); data.dismissed = true; data.lastDismissed = new Date().toISOString();
